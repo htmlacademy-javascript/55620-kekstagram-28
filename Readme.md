@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Polina Emelyanova](https://up.htmlacademy.ru/javascript/28/user/55620).
-* Наставник: `Михаил Карямин`.
+* Наставник: [Михаил Карямин](https://htmlacademy.ru/profile/id959581).
 
 ---
 
