@@ -2,12 +2,12 @@
 
 @example имя_функции('проверяемая строка', 20); // Результат: true - строка проходит по длине
 */
-function checkStringLength(str, length) {
+const checkStringLength = (str, length) => {
   if (str.length === length) {
     return true;
   }
   return false;
-}
+};
 
 checkStringLength('проверяемая строка 1', 20);
 checkStringLength('проверяемая строка', 10);
@@ -18,11 +18,11 @@ checkStringLength('проверяемая строка', 10);
 @example polindromeChecker('Кекс');  // Результат: false - это не палиндром
 */
 
-function polindromeChecker(str) {
+const polindromeChecker = (str) => {
   const comparedStr = str.replaceAll(' ', '').toLowerCase().split('').reverse().join('');
   const baseStr = str.replaceAll(' ', '').toLowerCase();
   return (comparedStr === baseStr);
-}
+};
 
 polindromeChecker('Лёша на полке клопа нашёл ');
 polindromeChecker('А роза упала на лапу Азора');
@@ -39,13 +39,13 @@ polindromeChecker('ДовОд');
 */
 
 
-function getNumber(param) {
+const getNumber = (param) => {
   if (typeof param === 'number') {
     return param;
   }
   const paramEdit = parseInt(param.replace(/[^\d]/g, ''), 10);
   return paramEdit;
-}
+};
 
 getNumber('2023 год');
 getNumber('1 кефир, 0.5 батона');
@@ -69,7 +69,7 @@ getNumber(2023);
 */
 
 
-function stringProcessor(str, minLength, addition) {
+const stringProcessor = (str, minLength, addition) => {
   if (str.length >= minLength) {
     return str;
   }
@@ -83,7 +83,7 @@ function stringProcessor(str, minLength, addition) {
     str = residue + str;
   }
   return str;
-}
+};
 
 stringProcessor('1', 2, '0');// Результат: строка '01'
 stringProcessor('1', 4, '0');// Результат: строка '0001'
