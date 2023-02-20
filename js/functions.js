@@ -73,8 +73,14 @@ function stringProcessor(str, minLength, addition) {
   if (str.length >= minLength) {
     return str;
   }
-  while (str.length < minLength) {
+  const numberOfAddition = minLength / addition.length;
+  while (str.length < numberOfAddition) {
     str = addition + str;
+  }
+  if (str.length < minLength) {
+    const index = minLength - str.length;
+    const residue = addition.slice(0, index);
+    str = residue + str;
   }
   return str;
 }
