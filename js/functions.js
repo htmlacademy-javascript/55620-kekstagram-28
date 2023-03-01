@@ -1,92 +1,71 @@
-/*Функция для проверки длины строки
+import { data } from './data.js';
+import { functionList } from './util.js';
 
-@example имя_функции('проверяемая строка', 20); // Результат: true - строка проходит по длине
-*/
-const checkStringLength = (str, length) => {
-  if (str.length === length) {
-    return true;
+const {
+  COMMENTS_MESSAGES,
+  COMMENTS_NAMES,
+  DESCRIPTIONS,
+  MIN_LIKES,
+  MAX_LIKES,
+  COMMENTS_LENGTH,
+  DESCR_LENGTH
+} = data;
+
+const {
+  getRandomeNum,
+  getRandomeNumElem,
+  getRandomeNumId
+} = functionList;
+
+
+// console.log(COMMENTS_NAMES);
+
+//сохраняем массив в отдельную переменную
+const idArr = getRandomeNumId(getRandomeNum, COMMENTS_LENGTH, 200);
+
+//шаблон для отдельного камента
+const makeComments = (num) => ({
+  id: num,
+  avatar: `img/avatar-${getRandomeNum(1, COMMENTS_LENGTH)}.svg`,
+  message: getRandomeNumElem(COMMENTS_MESSAGES),
+  name: getRandomeNumElem(COMMENTS_NAMES)
+});
+
+//создаем массив комментов
+const makeCommentsArr = (length, id) => {
+  const commentsArr = [];
+  for (let i = 0; i < length; i++) {
+    commentsArr.push(makeComments(id[i]));
   }
-  return false;
+  return commentsArr;
 };
 
-checkStringLength('проверяемая строка 1', 20);
-checkStringLength('проверяемая строка', 10);
-
-/*Функция для проверки, является ли строка палиндромом
-
-@example polindromeChecker('топот'); // Результат: true - строка является палиндромом
-@example polindromeChecker('Кекс');  // Результат: false - это не палиндром
-*/
-
-const polindromeChecker = (str) => {
-  const comparedStr = str.replaceAll(' ', '').toLowerCase().split('').reverse().join('');
-  const baseStr = str.replaceAll(' ', '').toLowerCase();
-  return (comparedStr === baseStr);
+//создаем массив с рандомными каментами рандомной длины
+const randomeCommentsArr = () => {
+  const randomeList = makeCommentsArr(COMMENTS_LENGTH, idArr);
+  const randomeLength = getRandomeNum(1, COMMENTS_LENGTH);
+  randomeList.length = randomeLength;
+  return randomeList;
 };
 
-polindromeChecker('Лёша на полке клопа нашёл ');
-polindromeChecker('А роза упала на лапу Азора');
-polindromeChecker('Кекс');
-polindromeChecker('ДовОд');
+//шаблон для описаний к фото
+const makeDescr = (num) => ({
+  id: num,
+  url: `photos/${num}.jpg`,
+  DESCRIPTIONS: DESCRIPTIONS[num],
+  likes: getRandomeNum(MIN_LIKES, MAX_LIKES),
+  comments: randomeCommentsArr()
+});
 
-
-/*Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN:
-
-@example getNumber('2023 год');            // Результат: число 2023
-@example getNumber('1 кефир, 0.5 батона'); // Результат: число 105
-@example getNumber('а я томат');           // Результат: NaN
-@example getNumber(2023); // Результат: число 2023
-*/
-
-
-const getNumber = (param) => {
-  if (typeof param === 'number') {
-    return param;
+//функция создания массива из описаний к фото.
+const descrGenerator = (length) => {
+  const descrArr = [];
+  for (let i = 1; i <= length; i++) {
+    descrArr.push(makeDescr(i));
   }
-  const paramEdit = parseInt(param.replace(/[^\d]/g, ''), 10);
-  return paramEdit;
+  return descrArr;
 };
 
-getNumber('2023 год');
-getNumber('1 кефир, 0.5 батона');
-getNumber('а я томат');
-getNumber(2023);
+const descrList = () => descrGenerator(DESCR_LENGTH);
 
-/* Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины.
-Символы добавляются в начало строки. Если исходная строка превышает заданную длину, она не должна обрезаться.
-Если «добивка» слишком длинная, она обрезается с конца.
-
-// Добавочный символ использован один раз
-@example stringProcessor('1', 2, '0');      // Результат: строка '01'
-// Добавочный символ использован три раза
-@example stringProcessor('1', 4, '0');      // Результат: строка '0001'
-// Добавочные символы обрезаны с конца
-@example stringProcessor('q', 4, 'werty');  // Результат: строка 'werq'
-// Добавочные символы использованы полтора раза
-@example stringProcessor('q', 4, 'we');     // Результат: строка 'wweq'
-// Добавочные символы не использованы, исходная строка не изменена
-@example stringProcessor('qwerty', 4, '0'); // Результат: строка 'qwerty'
-*/
-
-
-const stringProcessor = (str, minLength, addition) => {
-  if (str.length >= minLength) {
-    return str;
-  }
-  const numberOfAddition = minLength / addition.length;
-  while (str.length < numberOfAddition) {
-    str = addition + str;
-  }
-  if (str.length < minLength) {
-    const index = minLength - str.length;
-    const residue = addition.slice(0, index);
-    str = residue + str;
-  }
-  return str;
-};
-
-stringProcessor('1', 2, '0');// Результат: строка '01'
-stringProcessor('1', 4, '0');// Результат: строка '0001'
-stringProcessor('q', 4, 'werty');// Результат: строка 'werq'
-stringProcessor('q', 4, 'we');// Результат: строка 'wweq'
-stringProcessor('qwerty', 4, '0'); // Результат: строка 'qwerty'
+export { descrList };
