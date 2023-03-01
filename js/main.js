@@ -1,3 +1,3 @@
-import { descrList } from './function.js';
+import { descrList } from './functions.js';
 
 descrList();
