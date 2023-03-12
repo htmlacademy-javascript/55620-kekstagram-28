@@ -20,4 +20,4 @@ export const renderPictureList = (arrOfElems) => {
     miniaturesFragment.append(singleMiniature);
   });
   miniaturesContainer.append(miniaturesFragment);
-}
+};

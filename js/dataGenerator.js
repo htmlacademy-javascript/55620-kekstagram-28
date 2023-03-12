@@ -44,7 +44,6 @@ const makeCommentsArr = (length, id) => {
 //создаем массив с рандомными каментами рандомной длины
 const randomeCommentsArr = () => {
   const randomeList = makeCommentsArr(COMMENTS_LENGTH, idArr);
-  const randomeLength = getRandomeNum(1, COMMENTS_LENGTH);
   randomeList.length = COMMENTS_LENGTH;
   return randomeList;
 };
