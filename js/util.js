@@ -7,7 +7,7 @@ const getRandomeNum = (a, b) => {
 };
 
 //получаем рандомный элемент из массива
-const getRandomeNumElem = (arr) => arr[getRandomeNum(0, arr.length)];
+const getRandomeNumElem = (arr) => arr[getRandomeNum(0, arr.length - 1)];
 
 //получаем массив уникальных ID
 const getRandomeNumId = (cb, length, max) => {
@@ -22,10 +22,13 @@ const getRandomeNumId = (cb, length, max) => {
   return randomeIdArr;
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
 const functionList = {
   getRandomeNum,
   getRandomeNumElem,
-  getRandomeNumId
+  getRandomeNumId,
+  isEscapeKey,
 };
 
 export { functionList };
