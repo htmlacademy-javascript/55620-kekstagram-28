@@ -24,8 +24,6 @@ const getRandomeNumId = (cb, length, max) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const isEnterKey = (evt) => evt.key === 'Enter';
-
 const functionList = {
   getRandomeNum,
   getRandomeNumElem,
