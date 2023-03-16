@@ -54,10 +54,4 @@ function closeModal() {
 
 closePopupBtn.addEventListener('click', closeModal);
 
-closePopupBtn.addEventListener('keydown', (evt) => {
-  if (isEscapeKey(evt)) {
-    closeModal();
-  }
-});
-
 export const popupFunctions = { getPopupData, clearPopupData, closeModal, openModal };
