@@ -4,10 +4,7 @@ const commentsContainer = document.querySelector('.social__comments');
 const commentCurrentCount = document.querySelector('.comment-current');
 const commentsAddBTN = document.querySelector('.comments-loader');
 const COMMENT_COUNT = 5;
-let counter = COMMENT_COUNT;
-
-let commentsDataArray;
-
+// let counter = COMMENT_COUNT;
 
 const createComment = (item) => {
   const { avatar, message, name } = item;
@@ -17,8 +14,8 @@ const createComment = (item) => {
   commentsItem.querySelector('.social__text').textContent = message;
   return commentsItem;
 };
-
-const renderComments = (commentsArr) => {
+//Пашет только ТУТ и больше нигде. КАК МНЕ ЗАБРАТЬ МАССИВ commentsArr ОТ СЮДА И ПРОКИНУТЬ ДАЛЬШЕ???? Как мне вообще что-то от сюда забрать?????
+const createCommentsList = (commentsArr) => {
   commentsArr.forEach((elem) => {
     const singleComment = createComment(elem);
     commentsBox.append(singleComment);
@@ -27,34 +24,19 @@ const renderComments = (commentsArr) => {
   return commentsContainer;
 };
 
+const commentsRender = () => {
+  //НЕ ПАШЕТ!!! ВЫЗВАНО В Popup.js!!!!!!! С параметром тоже не пашет.
+  createCommentsList(commentsArr.slice(0, COMMENT_COUNT));
+  // commentsArr - undefined!!!!!
+  createCommentsList(commentsArr);
+};
+
+
 const commentBTNHendler = (evt) => {
   evt.preventDefault();
-  renderComments(commentsDataArray.slice(counter, counter + COMMENT_COUNT));
-  counter = counter + COMMENT_COUNT;
-  commentCurrentCount.textContent = (counter > commentsDataArray.length) ? commentsDataArray.length : counter;
-  if (counter >= commentsDataArray.length) {
-    commentsAddBTN.classList.add('hidden');
-  }
+  commentsRender();
 };
 
-const addComments = (commentsArr) => {
-  commentsDataArray = commentsArr;
-  if (commentsArr.length <= COMMENT_COUNT) {
-    renderComments(commentsArr);
-    commentsAddBTN.classList.add('hidden');
-    commentCurrentCount.textContent = commentsArr.length;
-  } else {
-    renderComments(commentsArr.slice(0, COMMENT_COUNT));
-    commentCurrentCount.textContent = (counter > commentsArr.length) ? commentsArr.length : counter;
-    commentsAddBTN.addEventListener('click', commentBTNHendler);
-  }
-};
+commentsAddBTN.addEventListener('click', commentBTNHendler);
 
-const removeEventLoader = () => {
-  counter = COMMENT_COUNT;
-  commentsAddBTN.removeEventListener('click', commentBTNHendler);
-  commentsAddBTN.classList.remove('hidden');
-};
-
-
-export const commentsCreation = { addComments, removeEventLoader };
+export const commentsCreation = { createComment, createCommentsList, commentsRender };
