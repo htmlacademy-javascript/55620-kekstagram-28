@@ -6,6 +6,8 @@ const commentCurrentCount = document.querySelector('.comment-current');
 
 const COMMENT_ADDING = 5;
 let commentCount = 5;
+let commentsDataArray;
+
 
 const createComment = (item) => {
   const { avatar, message, name } = item;
@@ -25,17 +27,8 @@ const commentRenderList = (list) => {
   return commentsContainer;
 };
 
-//как передать или КАМЕНТЫ СЮДА или ФУНКЦИЮ... КУДА?
-const commentsAddOnClick = () => {
-  commentCount += COMMENT_ADDING;
-  const commentsLengthText = +document.querySelector('.comments-count').textContent;
-  if (commentCount >= commentsLengthText) {
-    commentCount = commentsLengthText;
-  }
-  // console.log(commentCount);
-};
-
 const commentsListCreate = (commentsArr) => {
+  commentsDataArray = commentsArr;
   commentsContainer.innerHTML = '';
   const commentsRenderPortion = commentCount < commentsArr.length ? commentCount : commentsArr.length;
   commentCurrentCount.innerHTML = commentsRenderPortion;
@@ -44,6 +37,14 @@ const commentsListCreate = (commentsArr) => {
     commentsAddBTN.classList.add('hidden');
   }
   commentRenderList(commentList);
+};
+
+const commentsAddOnClick = () => {
+  commentCount += COMMENT_ADDING;
+  if (commentCount >= commentsDataArray.length) {
+    commentCount = commentsDataArray.length;
+  }
+  commentsListCreate(commentsDataArray, commentCount);
 };
 
 //сброс к нулю
