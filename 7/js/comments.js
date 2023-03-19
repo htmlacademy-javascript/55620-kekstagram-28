@@ -1,3 +1,4 @@
+import { state } from './state.js';
 const commentsTemplate = document.querySelector('.social__comment');
 const commentsAddBTN = document.querySelector('.social__comments-loader');
 const commentsBox = document.createDocumentFragment();
@@ -6,8 +7,7 @@ const commentCurrentCount = document.querySelector('.comment-current');
 
 const COMMENT_ADDING = 5;
 let commentCount = 5;
-let commentsDataArray;
-
+// let commentsDataArray;
 
 const createComment = (item) => {
   const { avatar, message, name } = item;
@@ -18,6 +18,7 @@ const createComment = (item) => {
   return commentsItem;
 };
 
+
 const commentRenderList = (list) => {
   list.forEach((elem) => {
     const singleComment = createComment(elem);
@@ -27,24 +28,27 @@ const commentRenderList = (list) => {
   return commentsContainer;
 };
 
-const commentsListCreate = (commentsArr) => {
-  commentsDataArray = commentsArr;
+const commentsListCreate = () => {
+  const commentsDataArray = state.currentMediaData;
+  const { comments } = commentsDataArray;
   commentsContainer.innerHTML = '';
-  const commentsRenderPortion = commentCount < commentsArr.length ? commentCount : commentsArr.length;
+  const commentsRenderPortion = commentCount < comments.length ? commentCount : comments.length;
   commentCurrentCount.innerHTML = commentsRenderPortion;
-  const commentList = commentsArr.slice(0, commentsRenderPortion);
-  if (commentsRenderPortion === commentsArr.length) {
+  const commentList = comments.slice(0, commentsRenderPortion);
+  if (commentsRenderPortion === comments.length) {
     commentsAddBTN.classList.add('hidden');
   }
   commentRenderList(commentList);
 };
 
 const commentsAddOnClick = () => {
+  const commentsDataArray = state.currentMediaData;
+  const { comments } = commentsDataArray;
   commentCount += COMMENT_ADDING;
-  if (commentCount >= commentsDataArray.length) {
-    commentCount = commentsDataArray.length;
+  if (commentCount >= comments.length) {
+    commentCount = comments.length;
   }
-  commentsListCreate(commentsDataArray, commentCount);
+  commentsListCreate();
 };
 
 //сброс к нулю
