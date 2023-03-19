@@ -1,3 +1,4 @@
+import { setMediaData } from './state.js';
 import { descrList } from './dataGenerator.js';
 import { renderPictureList } from './miniatures.js';
 import { popupFunctions } from './popup.js';
@@ -8,14 +9,14 @@ const miniaturesData = descrList();
 const miniaturesContainer = document.querySelector('.pictures');
 
 const miniatureClicEvent = (evt) => {
-  evt.preventDefault();
   const targetPic = evt.target.closest('.picture');
-  if (!targetPic) {
-    return;
+  if (evt.target.closest('.picture')) {
+    evt.preventDefault();
+    setMediaData(miniaturesData[targetPic.dataset.miniature - 1]);
+    openModal();
   }
-  const currentTargetId = miniaturesData[targetPic.dataset.miniature - 1];
-  openModal(currentTargetId);
 };
+
 
 //вывод миниатюр
 renderPictureList(miniaturesData);
