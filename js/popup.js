@@ -1,37 +1,26 @@
-const commentsBox = document.createDocumentFragment();
-const commentsTemplate = document.querySelector('.social__comment');
+import { functionList } from './utils.js';
+import { commentsCreation } from './comments.js';
+import { state, setMediaData } from './state.js';
 
-const createComments = (item) => {
-  const { avatar, message, name } = item;
-  const commentsItem = commentsTemplate.cloneNode(true);
-  commentsItem.querySelector('.social__picture').src = avatar;
-  commentsItem.querySelector('.social__picture').alt = name;
-  commentsItem.querySelector('.social__text').textContent = message;
-  return commentsItem;
-};
+const { isEscapeKey } = functionList;
+const { commentsListCreate, commentInitalRender } = commentsCreation;
 
-const renderComments = (arrOfElems) => {
-  arrOfElems.forEach((elem) => {
-    const singleComment = createComments(elem);
-    commentsBox.append(singleComment);
-  });
-  return commentsBox;
-};
+const bigPicture = document.querySelector('.big-picture');
+const closePopupBtn = bigPicture.querySelector('.big-picture__cancel');
 
-export const getPopupData = (dataId) => {
-  const bigPicture = document.querySelector('.big-picture');
-  const { url, likes, comments, DESCRIPTIONS } = dataId;
-  const commentsList = renderComments(comments);
+//отрисовка поапа
+const fillPopupData = () => {
+  const { url, likes, comments, DESCRIPTIONS } = state.currentMediaData;
   bigPicture.querySelector('.big-picture__img img').src = url;
   bigPicture.querySelector('.big-picture__img img').alt = DESCRIPTIONS;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.comments-count').textContent = comments.length;
   bigPicture.querySelector('.social__caption').textContent = DESCRIPTIONS;
-  bigPicture.querySelector('.social__comments').append(commentsList);
+  bigPicture.querySelector('.social__comments').innerHTML = '';
+  commentsListCreate();
 };
 
-export const clearPopupData = () => {
-  const bigPicture = document.querySelector('.big-picture');
+const clearPopupData = () => {
   bigPicture.querySelector('.big-picture__img img').src = './';
   bigPicture.querySelector('.big-picture__img img').alt = '';
   bigPicture.querySelector('.likes-count').textContent = 0;
@@ -39,3 +28,35 @@ export const clearPopupData = () => {
   bigPicture.querySelector('.social__caption').textContent = '';
   bigPicture.querySelector('.social__comments').innerHTML = '';
 };
+
+
+//открыть модалку
+const openModal = () => {
+  bigPicture.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  fillPopupData(state.currentMediaData);
+  document.addEventListener('keydown', onDocumentKeydown);
+
+};
+
+//закрыть модалку
+const closeModal = () => {
+  setMediaData(null);
+  bigPicture.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeydown);
+  clearPopupData();
+  commentInitalRender();
+};
+
+//закрыть по ESC
+function onDocumentKeydown(evt) {
+  if (isEscapeKey(evt)) {
+    closeModal();
+  }
+}
+
+
+closePopupBtn.addEventListener('click', closeModal);
+
+export const popupFunctions = { clearPopupData, closeModal, openModal };
