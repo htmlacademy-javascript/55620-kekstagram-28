@@ -1,5 +1,9 @@
 import { functionList } from './utils.js';
-import { pristineValidate, pristineReset } from './validation.js';
+import { validation } from './validation.js';
+import { photoFilters } from './foto-filters.js';
+
+const { pristineValidate, pristineReset } = validation;
+const { resetZoom } = photoFilters;
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadFileInput = document.querySelector('#upload-file');
@@ -21,6 +25,7 @@ const openUploadForm = () => {
   uploadPopupOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  resetZoom();
 };
 
 const closeUploadForm = () => {

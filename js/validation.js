@@ -33,7 +33,7 @@ const uploadFormHashtagLengthChecking = (hashtags) => {
 
 const uploadFormHashtagHashSimbolChecking = (hashtags) => {
   const hashtagArray = uploadFormHashtagArray(hashtags);
-  return hashtagArray.every(tag => REGEXP.test(tag));
+  return hashtagArray.every((tag) => REGEXP.test(tag));
 };
 
 const uploadFormHashtagUnicCheckinh = (hashtags) => {
@@ -46,5 +46,7 @@ pristine.addValidator(uploadForm.querySelector('.text__hashtags'), uploadFormHas
 pristine.addValidator(uploadForm.querySelector('.text__hashtags'), uploadFormHashtagLengthChecking, ERROR_MESSAGES.hashlengthError);
 pristine.addValidator(uploadForm.querySelector('.text__hashtags'), uploadFormHashtagUnicCheckinh, ERROR_MESSAGES.hashUnicError);
 
-export const pristineValidate = () => pristine.validate();
-export const pristineReset = () => pristine.reset();
+const pristineValidate = () => pristine.validate();
+const pristineReset = () => pristine.reset();
+
+export const validation = { pristineValidate, pristineReset };
