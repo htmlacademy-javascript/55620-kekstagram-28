@@ -12,39 +12,39 @@ const uploadFileSubmitBTN = document.querySelector('.img-upload__submit');
 const { isEscapeKey } = functionList;
 
 const clearUploadFormData = () => {
- uploadFileHashtagInput.value = '';
- uploadFileDescription.value = '';
- uploadFileInput.value = '';
+  uploadFileHashtagInput.value = '';
+  uploadFileDescription.value = '';
+  uploadFileInput.value = '';
 };
 
 const openUploadForm = () => {
- uploadPopupOverlay.classList.remove('hidden');
- document.body.classList.add('modal-open');
- document.addEventListener('keydown', onDocumentKeydown);
+  uploadPopupOverlay.classList.remove('hidden');
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
 };
 
 const closeUploadForm = () => {
- uploadPopupOverlay.classList.add('hidden');
- document.body.classList.remove('modal-open');
- clearUploadFormData();
- document.removeEventListener('keydown', onDocumentKeydown);
- pristineReset();
+  uploadPopupOverlay.classList.add('hidden');
+  document.body.classList.remove('modal-open');
+  clearUploadFormData();
+  document.removeEventListener('keydown', onDocumentKeydown);
+  pristineReset();
 };
 
 function onDocumentKeydown(evt) {
- if (isEscapeKey(evt) &&
-  uploadFileHashtagInput !== document.activeElement && uploadFileDescription !== document.activeElement) {
-  evt.preventDefault();
-  closeUploadForm();
- }
-};
+  if (isEscapeKey(evt) &&
+    uploadFileHashtagInput !== document.activeElement && uploadFileDescription !== document.activeElement) {
+    evt.preventDefault();
+    closeUploadForm();
+  }
+}
 
 function uploadFormSubmit(evt) {
- if (!pristineValidate()) {
-  evt.preventDefault();
-  uploadFileSubmitBTN.disabled = true;
- }
- uploadFileSubmitBTN.disabled = false;
+  if (!pristineValidate()) {
+    evt.preventDefault();
+    uploadFileSubmitBTN.disabled = true;
+  }
+  uploadFileSubmitBTN.disabled = false;
 }
 
 uploadFileInput.addEventListener('change', openUploadForm);
