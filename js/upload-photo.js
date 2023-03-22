@@ -1,9 +1,11 @@
 import { functionList } from './utils.js';
 import { validation } from './validation.js';
-import { photoFilters } from './foto-filters.js';
+import { photoZoom } from './foto-zoom.js';
+import { fotoEffects } from './foto-effects.js';
 
 const { pristineValidate, pristineReset } = validation;
-const { resetZoom } = photoFilters;
+const { resetZoom } = photoZoom;
+const { resetEffect } = fotoEffects;
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadFileInput = document.querySelector('#upload-file');
@@ -25,7 +27,6 @@ const openUploadForm = () => {
   uploadPopupOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  resetZoom();
 };
 
 const closeUploadForm = () => {
@@ -34,6 +35,8 @@ const closeUploadForm = () => {
   clearUploadFormData();
   document.removeEventListener('keydown', onDocumentKeydown);
   pristineReset();
+  resetZoom();
+  resetEffect();
 };
 
 function onDocumentKeydown(evt) {
