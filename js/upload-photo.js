@@ -48,11 +48,12 @@ function onDocumentKeydown(evt) {
 }
 
 function uploadFormSubmit(evt) {
-  if (!pristineValidate()) {
+  if (pristineValidate()) {
     evt.preventDefault();
+    uploadFileSubmitBTN.disabled = false;
+  } else {
     uploadFileSubmitBTN.disabled = true;
   }
-  uploadFileSubmitBTN.disabled = false;
 }
 
 uploadFileInput.addEventListener('change', openUploadForm);
