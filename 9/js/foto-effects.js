@@ -47,10 +47,13 @@ const EFFECTS = {
     unit: '',
   },
 };
-let currentEffect = '';
-
-
 const hideSlider = (val) => val ? effectSliderContainer.classList.add('hidden') : effectSliderContainer.classList.remove('hidden');
+
+const resetEffect = () => {
+  userPhoto.style = null;
+  userPhoto.className = '';
+  hideSlider(true);
+};
 
 noUiSlider.create(effectsSlider, {
   range: {
@@ -74,6 +77,7 @@ noUiSlider.create(effectsSlider, {
 });
 hideSlider(true);
 
+
 const updateEffectSlider = (effect) => {
   effectsSlider.noUiSlider.updateOptions({
     range: {
@@ -84,37 +88,31 @@ const updateEffectSlider = (effect) => {
     step: EFFECTS[effect].step,
     connect: 'lower',
   });
-};
-
-const chooseEffect = (evt) => {
-  if (evt.target.closest('.effects__radio')) {
-    const effect = evt.target.value;
-    userPhoto.classList = '';
-    currentEffect = EFFECTS[effect];
-    if (effect !== 'none') {
-      hideSlider(false);
-      userPhoto.classList.add(`effects__preview--${effect}`);
-    } else {
-      hideSlider(true);
-      userPhoto.style.filter = 'none';
+  effectsSlider.noUiSlider.on('update', () => {
+    const effectValue = effectsSlider.noUiSlider.get();
+    effectInput.value = effectValue;
+    userPhoto.style.filter = `${EFFECTS[effect].filter}(${effectValue + EFFECTS[effect].unit})`;
+    if (EFFECTS[effect].filter === 'none') {
+      userPhoto.style = null;
     }
-    updateEffectSlider(effect);
+  });
+};
+
+const chooseEffectonClick = (evt) => {
+  if (!evt.target.closest('.effects__radio')) {
+    return;
   }
+  const effect = evt.target.value;
+  userPhoto.classList = '';
+  if (effect !== 'none') {
+    hideSlider(false);
+    userPhoto.classList.add(`effects__preview--${effect}`);
+  } else {
+    resetEffect();
+  }
+  updateEffectSlider(effect);
 };
 
-const updateEffectData = () => {
-  const effectValue = effectsSlider.noUiSlider.get();
-  effectInput.value = effectValue;
-  userPhoto.style.filter = `${currentEffect.filter}(${effectValue + currentEffect.unit})`;
-};
-
-const resetEffect = () => {
-  userPhoto.style = null;
-  userPhoto.className = '';
-  hideSlider(true);
-};
-
-effectsList.addEventListener('change', chooseEffect);
-effectsSlider.noUiSlider.on('update', updateEffectData);
+effectsList.addEventListener('change', chooseEffectonClick);
 
 export const fotoEffects = { resetEffect };
