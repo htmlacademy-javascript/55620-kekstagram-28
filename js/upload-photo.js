@@ -50,8 +50,6 @@ function onDocumentKeydown(evt) {
 function uploadFormSubmit(evt) {
   if (pristineValidate()) {
     evt.preventDefault();
-    uploadFileSubmitBTN.disabled = false;
-  } else {
     uploadFileSubmitBTN.disabled = true;
   }
 }
