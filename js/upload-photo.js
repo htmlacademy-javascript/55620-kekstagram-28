@@ -1,5 +1,11 @@
 import { functionList } from './utils.js';
-import { pristineValidate, pristineReset } from './validation.js';
+import { validation } from './validation.js';
+import { photoZoom } from './foto-zoom.js';
+import { fotoEffects } from './foto-effects.js';
+
+const { pristineValidate, pristineReset } = validation;
+const { resetZoom } = photoZoom;
+const { resetEffect } = fotoEffects;
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadFileInput = document.querySelector('#upload-file');
@@ -29,6 +35,8 @@ const closeUploadForm = () => {
   clearUploadFormData();
   document.removeEventListener('keydown', onDocumentKeydown);
   pristineReset();
+  resetZoom();
+  resetEffect();
 };
 
 function onDocumentKeydown(evt) {
@@ -40,11 +48,10 @@ function onDocumentKeydown(evt) {
 }
 
 function uploadFormSubmit(evt) {
-  if (!pristineValidate()) {
+  if (pristineValidate()) {
     evt.preventDefault();
     uploadFileSubmitBTN.disabled = true;
   }
-  uploadFileSubmitBTN.disabled = false;
 }
 
 uploadFileInput.addEventListener('change', openUploadForm);
