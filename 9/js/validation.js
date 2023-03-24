@@ -20,11 +20,14 @@ const pristine = new Pristine(uploadForm, {
 
 const uploadFormTextareaValidate = (value) => value.length < MESSAGE_LENGTH;
 
-pristine.addValidator(uploadForm.querySelector('.text__description'), uploadFormTextareaValidate, ERROR_MESSAGES.textareaErrorMessage);
+pristine.addValidator(
+  uploadForm.querySelector('.text__description'),
+  uploadFormTextareaValidate,
+  ERROR_MESSAGES.textareaErrorMessage);
 
 /*HASHTAG */
 
-const uploadFormHashtagArray = (hashtags) => hashtags.trim().toLowerCase().split(/\s+/);
+const uploadFormHashtagArray = (hashtags) => hashtags.trim().toLowerCase().split(' ').filter(Boolean);
 
 const uploadFormHashtagLengthChecking = (hashtags) => {
   const hashtagArray = uploadFormHashtagArray(hashtags);
@@ -33,6 +36,9 @@ const uploadFormHashtagLengthChecking = (hashtags) => {
 
 const uploadFormHashtagHashSimbolChecking = (hashtags) => {
   const hashtagArray = uploadFormHashtagArray(hashtags);
+  if (hashtags.length === 0) {
+    return true;
+  }
   return hashtagArray.every((tag) => REGEXP.test(tag));
 };
 
@@ -42,9 +48,20 @@ const uploadFormHashtagUnicCheckinh = (hashtags) => {
   return hashtagArray.length === dataSetArray.size;
 };
 
-pristine.addValidator(uploadForm.querySelector('.text__hashtags'), uploadFormHashtagHashSimbolChecking, ERROR_MESSAGES.hashSimbolError);
-pristine.addValidator(uploadForm.querySelector('.text__hashtags'), uploadFormHashtagLengthChecking, ERROR_MESSAGES.hashlengthError);
-pristine.addValidator(uploadForm.querySelector('.text__hashtags'), uploadFormHashtagUnicCheckinh, ERROR_MESSAGES.hashUnicError);
+pristine.addValidator(
+  uploadForm.querySelector('.text__hashtags'),
+  uploadFormHashtagHashSimbolChecking,
+  ERROR_MESSAGES.hashSimbolError);
+
+pristine.addValidator(
+  uploadForm.querySelector('.text__hashtags'),
+  uploadFormHashtagLengthChecking,
+  ERROR_MESSAGES.hashlengthError);
+
+pristine.addValidator(
+  uploadForm.querySelector('.text__hashtags'),
+  uploadFormHashtagUnicCheckinh,
+  ERROR_MESSAGES.hashUnicError);
 
 const pristineValidate = () => pristine.validate();
 const pristineReset = () => pristine.reset();
