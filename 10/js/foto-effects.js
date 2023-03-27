@@ -49,12 +49,6 @@ const EFFECTS = {
 };
 const hideSlider = (val) => val ? effectSliderContainer.classList.add('hidden') : effectSliderContainer.classList.remove('hidden');
 
-const resetEffect = () => {
-  userPhoto.style = null;
-  userPhoto.className = '';
-  hideSlider(true);
-};
-
 noUiSlider.create(effectsSlider, {
   range: {
     min: EFFECTS.none.min,
@@ -77,7 +71,6 @@ noUiSlider.create(effectsSlider, {
 });
 hideSlider(true);
 
-
 const updateEffectSlider = (effect) => {
   effectsSlider.noUiSlider.updateOptions({
     range: {
@@ -98,6 +91,13 @@ const updateEffectSlider = (effect) => {
   });
 };
 
+const resetEffect = () => {
+  userPhoto.className = '';
+  hideSlider(true);
+  document.querySelector('#effect-none').checked = true;
+  updateEffectSlider('none');
+};
+
 const chooseEffectonClick = (evt) => {
   if (!evt.target.closest('.effects__radio')) {
     return;
@@ -109,6 +109,8 @@ const chooseEffectonClick = (evt) => {
     userPhoto.classList.add(`effects__preview--${effect}`);
   } else {
     resetEffect();
+    effectInput.value = 100;
+    effectsSlider.noUiSlider.set(EFFECTS['none'].max);
   }
   updateEffectSlider(effect);
 };
