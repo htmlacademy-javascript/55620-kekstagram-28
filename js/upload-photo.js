@@ -1,3 +1,5 @@
+import { getMediaData, sendMediaData } from './api.js';
+import { showSuccessSendDataMessage, showErrorSendDataMessage } from './user-message.js';
 import { functionList } from './utils.js';
 import { validation } from './validation.js';
 import { photoZoom } from './foto-zoom.js';
@@ -39,6 +41,7 @@ const closeUploadForm = () => {
   resetEffect();
 };
 
+
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt) &&
     uploadFileHashtagInput !== document.activeElement && uploadFileDescription !== document.activeElement) {
@@ -48,9 +51,19 @@ function onDocumentKeydown(evt) {
 }
 
 function uploadFormSubmit(evt) {
+  evt.preventDefault();
   if (pristineValidate()) {
-    evt.preventDefault();
     uploadFileSubmitBTN.disabled = true;
+    sendMediaData(new FormData(evt.target))
+      .then(showSuccessSendDataMessage)
+      .then(() => {
+        closeUploadForm();
+        console.log(new FormData(evt.target))
+      })
+      .catch(showErrorSendDataMessage)
+      .finally(() => {
+        uploadFileSubmitBTN.disabled = false;
+      })
   }
 }
 
