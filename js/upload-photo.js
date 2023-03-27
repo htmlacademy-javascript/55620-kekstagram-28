@@ -1,4 +1,4 @@
-import { getMediaData, sendMediaData } from './api.js';
+import { sendMediaData } from './api.js';
 import { showSuccessSendDataMessage, showErrorSendDataMessage } from './user-message.js';
 import { functionList } from './utils.js';
 import { validation } from './validation.js';
@@ -58,12 +58,11 @@ function uploadFormSubmit(evt) {
       .then(showSuccessSendDataMessage)
       .then(() => {
         closeUploadForm();
-        console.log(new FormData(evt.target))
       })
       .catch(showErrorSendDataMessage)
       .finally(() => {
         uploadFileSubmitBTN.disabled = false;
-      })
+      });
   }
 }
 
