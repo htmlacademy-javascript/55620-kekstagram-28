@@ -1,3 +1,5 @@
+import { sendMediaData } from './api.js';
+import { showSuccessSendDataMessage, showErrorSendDataMessage } from './user-message.js';
 import { functionList } from './utils.js';
 import { validation } from './validation.js';
 import { photoZoom } from './foto-zoom.js';
@@ -27,6 +29,7 @@ const openUploadForm = () => {
   uploadPopupOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  // console.log(uploadFileInput.value === '')
 };
 
 const closeUploadForm = () => {
@@ -39,8 +42,10 @@ const closeUploadForm = () => {
   resetEffect();
 };
 
+
 function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) &&
+  const errorPopup = document.querySelector('.error');
+  if (!errorPopup && isEscapeKey(evt) &&
     uploadFileHashtagInput !== document.activeElement && uploadFileDescription !== document.activeElement) {
     evt.preventDefault();
     closeUploadForm();
@@ -48,9 +53,18 @@ function onDocumentKeydown(evt) {
 }
 
 function uploadFormSubmit(evt) {
+  evt.preventDefault();
   if (pristineValidate()) {
-    evt.preventDefault();
     uploadFileSubmitBTN.disabled = true;
+    sendMediaData(new FormData(evt.target))
+      .then(showSuccessSendDataMessage)
+      .then(() => {
+        closeUploadForm();
+      })
+      .catch(showErrorSendDataMessage)
+      .finally(() => {
+        uploadFileSubmitBTN.disabled = false;
+      });
   }
 }
 
