@@ -29,6 +29,7 @@ const openUploadForm = () => {
   uploadPopupOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  // console.log(uploadFileInput.value === '')
 };
 
 const closeUploadForm = () => {
@@ -43,7 +44,8 @@ const closeUploadForm = () => {
 
 
 function onDocumentKeydown(evt) {
-  if (isEscapeKey(evt) &&
+  const errorPopup = document.querySelector('.error');
+  if (!errorPopup && isEscapeKey(evt) &&
     uploadFileHashtagInput !== document.activeElement && uploadFileDescription !== document.activeElement) {
     evt.preventDefault();
     closeUploadForm();
