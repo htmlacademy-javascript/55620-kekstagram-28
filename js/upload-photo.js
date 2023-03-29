@@ -17,7 +17,22 @@ const uploadFileHashtagInput = document.querySelector('.text__hashtags');
 const uploadFileDescription = document.querySelector('.text__description');
 const uploadFileSubmitBTN = document.querySelector('.img-upload__submit');
 
+const userFotoPreview = document.querySelector('.img-upload__preview img');
+const effectsPreview = document.querySelectorAll('.effects__preview');
+const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp'];
+
 const { isEscapeKey } = functionList;
+
+const uploadUserFile = () => {
+  const userFile = uploadFileInput.files[0];
+  const userFileName = userFile.name.toLowerCase();
+  const isValidFileType = FILE_TYPES.some((type) => userFileName.endsWith(type));
+
+  if (isValidFileType) {
+    userFotoPreview.src = URL.createObjectURL(userFile);
+    effectsPreview.forEach((item) => (item.style.backgroundImage = `url('${userFotoPreview.src}')`));
+  }
+};
 
 const clearUploadFormData = () => {
   uploadFileHashtagInput.value = '';
@@ -29,7 +44,7 @@ const openUploadForm = () => {
   uploadPopupOverlay.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  // console.log(uploadFileInput.value === '')
+  uploadUserFile();
 };
 
 const closeUploadForm = () => {
