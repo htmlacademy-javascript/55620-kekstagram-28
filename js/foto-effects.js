@@ -86,7 +86,7 @@ const updateEffectSlider = (effect) => {
     effectInput.value = effectValue;
     userPhoto.style.filter = `${EFFECTS[effect].filter}(${effectValue + EFFECTS[effect].unit})`;
     if (EFFECTS[effect].filter === 'none') {
-      userPhoto.style = null;
+      userPhoto.style.filter = null;
     }
   });
 };
