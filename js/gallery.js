@@ -1,10 +1,15 @@
 import { state, setMediaData } from './state.js';
 import { getMediaData } from './api.js';
+import { functionList } from './utils.js';
 import { showErrorGetDataMessage } from './user-message.js';
 import { renderPictureList } from './miniatures.js';
 import { popupFunctions } from './popup.js';
+import { filterFunction } from './filter.js';
 
+const { debounce } = functionList;
 const { openModal } = popupFunctions;
+const { filterInit } = filterFunction;
+
 
 const miniaturesContainer = document.querySelector('.pictures');
 
@@ -14,6 +19,8 @@ try {
   const mediaData = await getMediaData();
   setMediaData(mediaData);
   miniaturesData = state.currentMediaData;
+  const debousingGallery = debounce(renderPictureList);
+  filterInit(miniaturesData, debousingGallery);
   renderPictureList(miniaturesData);
 } catch (err) {
   showErrorGetDataMessage(err.message);

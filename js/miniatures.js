@@ -15,6 +15,7 @@ const createMiniature = (data) => {
 };
 
 export const renderPictureList = (arrOfElems) => {
+  miniaturesContainer.querySelectorAll('.picture').forEach((item) => item.remove());
   arrOfElems.forEach((elem) => {
     const singleMiniature = createMiniature(elem);
     miniaturesFragment.append(singleMiniature);

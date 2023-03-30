@@ -25,7 +25,9 @@ const showErrorGetDataMessage = (error) => {
 const closeErrorPopupMessage = () => {
   document.removeEventListener('keydown', onDocumentKeydownError);
   const errorPopup = document.querySelector('.error');
-  errorPopup.remove();
+  if (errorPopup) {
+    errorPopup.remove();
+  }
 };
 
 const onOutSideErrorClick = (evt) => {
@@ -55,7 +57,9 @@ function onDocumentKeydownError(evt) {
 const closeSuccessPopupMessage = () => {
   document.removeEventListener('keydown', onDocumentKeydownSuccess);
   const successPopup = document.querySelector('.success');
-  successPopup.remove();
+  if (successPopup) {
+    successPopup.remove();
+  }
 };
 
 const onOutSideSuccessClick = (evt) => {
