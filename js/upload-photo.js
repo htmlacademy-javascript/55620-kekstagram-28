@@ -19,7 +19,7 @@ const uploadFileSubmitBTN = document.querySelector('.img-upload__submit');
 
 const userFotoPreview = document.querySelector('.img-upload__preview img');
 const effectsPreview = document.querySelectorAll('.effects__preview');
-const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp'];
+const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
 
 const { isEscapeKey } = functionList;
 

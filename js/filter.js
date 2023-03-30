@@ -1,7 +1,7 @@
 const MINIATURE_COUNT = 10;
 const Filter = {
-  DEFAULT: 'filter -default',
-  RANDOME: 'filter-random',
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed',
 };
 const filterContainer = document.querySelector('.img-filters');
@@ -13,7 +13,7 @@ const sortingByDiscussed = (a, b) => b.comments.length - a.comments.length;
 
 const filteringMiniatures = () => {
   switch (filterCurrent) {
-    case Filter.RANDOME:
+    case Filter.RANDOM:
       return [...miniatuteArray].sort(sortingByRandom).slice(0, MINIATURE_COUNT);
     case Filter.DISCUSSED:
       return [...miniatuteArray].sort(sortingByDiscussed);
