@@ -6,8 +6,7 @@ const commentsContainer = document.querySelector('.social__comments');
 const commentCurrentCount = document.querySelector('.comment-current');
 
 const COMMENT_ADDING = 5;
-let commentCount = 5;
-// let commentsDataArray;
+let COMMENT_COUNT = 5;
 
 const createComment = (item) => {
   const { avatar, message, name } = item;
@@ -32,7 +31,7 @@ const commentsListCreate = () => {
   const commentsDataArray = state.currentMediaData;
   const { comments } = commentsDataArray;
   commentsContainer.innerHTML = '';
-  const commentsRenderPortion = commentCount < comments.length ? commentCount : comments.length;
+  const commentsRenderPortion = COMMENT_COUNT < comments.length ? COMMENT_COUNT : comments.length;
   commentCurrentCount.innerHTML = commentsRenderPortion;
   const commentList = comments.slice(0, commentsRenderPortion);
   if (commentsRenderPortion === comments.length) {
@@ -44,16 +43,16 @@ const commentsListCreate = () => {
 const commentsAddOnClick = () => {
   const commentsDataArray = state.currentMediaData;
   const { comments } = commentsDataArray;
-  commentCount += COMMENT_ADDING;
-  if (commentCount >= comments.length) {
-    commentCount = comments.length;
+  COMMENT_COUNT += COMMENT_ADDING;
+  if (COMMENT_COUNT >= comments.length) {
+    COMMENT_COUNT = comments.length;
   }
   commentsListCreate();
 };
 
 //сброс к нулю
 const commentInitalRender = () => {
-  commentCount = COMMENT_ADDING;
+  COMMENT_COUNT = COMMENT_ADDING;
   commentsAddBTN.classList.remove('hidden');
 };
 
