@@ -3,7 +3,7 @@ const zoomOutBTN = document.querySelector('.scale__control--smaller');
 const zoomInBTN = document.querySelector('.scale__control--bigger');
 const zoomValue = document.querySelector('.scale__control--value');
 
-const zoomConfig = {
+const ZoomConfig = {
   MAX_ZOOM: 100,
   MIN_ZOOM: 25,
   ZOOM_STEP: 25
@@ -15,16 +15,16 @@ const zoomingPhotoStyling = () => {
 
 const zoomingBTNClick = (evt) => {
   evt.preventDefault();
-  if (parseInt(zoomValue.value, 10) < zoomConfig.MAX_ZOOM) {
-    zoomValue.value = `${parseInt(zoomValue.value, 10) + zoomConfig.ZOOM_STEP}%`;
+  if (parseInt(zoomValue.value, 10) < ZoomConfig.MAX_ZOOM) {
+    zoomValue.value = `${parseInt(zoomValue.value, 10) + ZoomConfig.ZOOM_STEP}%`;
     zoomingPhotoStyling();
   }
 };
 
 const zoomoutingBTNClick = (evt) => {
   evt.preventDefault();
-  if (parseInt(zoomValue.value, 10) > zoomConfig.MIN_ZOOM) {
-    zoomValue.value = `${parseInt(zoomValue.value, 10) - zoomConfig.ZOOM_STEP}%`;
+  if (parseInt(zoomValue.value, 10) > ZoomConfig.MIN_ZOOM) {
+    zoomValue.value = `${parseInt(zoomValue.value, 10) - ZoomConfig.ZOOM_STEP}%`;
     zoomingPhotoStyling();
   }
 };
