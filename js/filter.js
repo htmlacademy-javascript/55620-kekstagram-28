@@ -1,17 +1,24 @@
+import { functionList } from './utils.js';
+import { renderPictureList } from './miniatures.js';
+
 const MINIATURE_COUNT = 10;
 const Filter = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed',
 };
+const { debounce } = functionList;
+
 const filterContainer = document.querySelector('.img-filters');
 let filterCurrent = Filter.DEFAULT;
-let miniatuteArray = [];
 
 const sortingByRandom = () => Math.random() - 0.5;
 const sortingByDiscussed = (a, b) => b.comments.length - a.comments.length;
+const debousingGallery = debounce(renderPictureList);
 
-const filteringMiniatures = () => {
+
+const filteringMiniatures = (mediaData) => {
+  const miniatuteArray = [...mediaData];
   switch (filterCurrent) {
     case Filter.RANDOM:
       return [...miniatuteArray].sort(sortingByRandom).slice(0, MINIATURE_COUNT);
@@ -22,7 +29,8 @@ const filteringMiniatures = () => {
   }
 };
 
-const chooseFilter = (cb) => {
+const chooseFilter = (mediaData) => {
+  filterContainer.classList.remove('img-filters--inactive');
   filterContainer.addEventListener('click', (evt) => {
     const currentBTN = evt.target.closest('.img-filters__button');
     if (!currentBTN) {
@@ -34,16 +42,14 @@ const chooseFilter = (cb) => {
     filterContainer.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
     currentBTN.classList.add('img-filters__button--active');
     filterCurrent = currentBTN.id;
-    cb(filteringMiniatures());
+    debousingGallery(filteringMiniatures(mediaData));
   });
 };
 
 
-const filterInit = (mediaData, cb) => {
-  filterContainer.classList.remove('img-filters--inactive');
-  miniatuteArray = [...mediaData];
-  chooseFilter(cb);
+const filterInit = (mediaData) => {
+  renderPictureList(mediaData);
+  chooseFilter(mediaData);
 };
-
 
 export const filterFunction = { filterInit, filteringMiniatures };
