@@ -12,7 +12,6 @@ const { isEscapeKey } = functionList;
 const showErrorGetDataMessage = (error) => {
   const messageTemp = userMessageError.cloneNode(true);
   messageTemp.querySelector('.error__title').textContent = error;
-  document.addEventListener('keydown', onDocumentKeydownError);
   messageTemp.querySelector('.error__button').classList.add('hidden');
   document.body.append(messageTemp);
   setTimeout(() => {

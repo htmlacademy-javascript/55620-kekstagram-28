@@ -10,12 +10,12 @@ const closePopupBtn = bigPicture.querySelector('.big-picture__cancel');
 
 //отрисовка поапа
 const fillPopupData = () => {
-  const { url, likes, comments, DESCRIPTIONS } = state.currentMediaData;
+  const { url, likes, comments, description } = state.currentMediaData;
   bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.big-picture__img img').alt = DESCRIPTIONS;
+  bigPicture.querySelector('.big-picture__img img').alt = description;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.comments-count').textContent = comments.length;
-  bigPicture.querySelector('.social__caption').textContent = DESCRIPTIONS;
+  bigPicture.querySelector('.social__caption').textContent = description;
   bigPicture.querySelector('.social__comments').innerHTML = '';
   commentsListCreate();
 };
