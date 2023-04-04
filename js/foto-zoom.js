@@ -1,13 +1,14 @@
-const userPhoto = document.querySelector('.img-upload__preview img');
-const zoomOutBTN = document.querySelector('.scale__control--smaller');
-const zoomInBTN = document.querySelector('.scale__control--bigger');
-const zoomValue = document.querySelector('.scale__control--value');
-
 const ZoomConfig = {
   MAX_ZOOM: 100,
   MIN_ZOOM: 25,
   ZOOM_STEP: 25
 };
+
+const userPhoto = document.querySelector('.img-upload__preview img');
+const zoomOutBTN = document.querySelector('.scale__control--smaller');
+const zoomInBTN = document.querySelector('.scale__control--bigger');
+const zoomValue = document.querySelector('.scale__control--value');
+
 
 const zoomingPhotoStyling = () => {
   userPhoto.style.transform = `scale(${parseInt(zoomValue.value, 10) / 100})`;

@@ -3,6 +3,7 @@ const effectsSlider = document.querySelector('.effect-level__slider');
 const userPhoto = document.querySelector('.img-upload__preview img');
 const effectsList = document.querySelector('.effects__list');
 const effectInput = document.querySelector('.effect-level__value');
+
 const Effects = {
   none: {
     filter: 'none',
@@ -47,6 +48,7 @@ const Effects = {
     unit: '',
   },
 };
+
 const hideSlider = (val) => val ? effectSliderContainer.classList.add('hidden') : effectSliderContainer.classList.remove('hidden');
 
 noUiSlider.create(effectsSlider, {

@@ -1,12 +1,11 @@
 import { functionList } from './utils.js';
 
+const { isEscapeKey } = functionList;
+
 const userMessageError = document.querySelector('#error').content
   .querySelector('.error');
 const userMessageSuccess = document.querySelector('#success').content
   .querySelector('.success');
-
-const { isEscapeKey } = functionList;
-
 
 //ошибка получения данных
 const showErrorGetDataMessage = (error) => {
@@ -18,7 +17,6 @@ const showErrorGetDataMessage = (error) => {
     messageTemp.remove();
   }, 2000);
 };
-
 
 //ошибка отправки данных
 const closeErrorPopupMessage = () => {
@@ -52,7 +50,6 @@ function onDocumentKeydownError(evt) {
 }
 
 //успешно отправлено
-
 const closeSuccessPopupMessage = () => {
   document.removeEventListener('keydown', onDocumentKeydownSuccess);
   const successPopup = document.querySelector('.success');
