@@ -1,4 +1,3 @@
-const uploadForm = document.querySelector('#upload-select-image');
 
 const REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 const HASHTAG_LENGTH = 5;
@@ -9,6 +8,8 @@ const ErrorMessages = {
   hashlengthError: `Не более ${HASHTAG_LENGTH} тегов на фото`,
   hashUnicError: 'Повтор тегов запрещен',
 };
+
+const uploadForm = document.querySelector('#upload-select-image');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',

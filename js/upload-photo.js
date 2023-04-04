@@ -8,6 +8,9 @@ import { fotoEffects } from './foto-effects.js';
 const { pristineValidate, pristineReset } = validation;
 const { resetZoom } = photoZoom;
 const { resetEffect } = fotoEffects;
+const { isEscapeKey } = functionList;
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadFileInput = document.querySelector('#upload-file');
@@ -19,9 +22,6 @@ const uploadFileSubmitBTN = document.querySelector('.img-upload__submit');
 
 const userFotoPreview = document.querySelector('.img-upload__preview img');
 const effectsPreview = document.querySelectorAll('.effects__preview');
-const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
-
-const { isEscapeKey } = functionList;
 
 const uploadUserFile = () => {
   const userFile = uploadFileInput.files[0];

@@ -1,12 +1,14 @@
 import { state } from './state.js';
+
+const COMMENT_ADDING = 5;
+let commentCount = 5;
+
 const commentsTemplate = document.querySelector('.social__comment');
 const commentsAddBTN = document.querySelector('.social__comments-loader');
 const commentsBox = document.createDocumentFragment();
 const commentsContainer = document.querySelector('.social__comments');
 const commentCurrentCount = document.querySelector('.comment-current');
 
-const COMMENT_ADDING = 5;
-let COMMENT_COUNT = 5;
 
 const createComment = (item) => {
   const { avatar, message, name } = item;
@@ -24,14 +26,13 @@ const commentRenderList = (list) => {
     commentsBox.append(singleComment);
   });
   commentsContainer.append(commentsBox);
-  return commentsContainer;
 };
 
 const commentsListCreate = () => {
   const commentsDataArray = state.currentMediaData;
   const { comments } = commentsDataArray;
   commentsContainer.innerHTML = '';
-  const commentsRenderPortion = COMMENT_COUNT < comments.length ? COMMENT_COUNT : comments.length;
+  const commentsRenderPortion = commentCount < comments.length ? commentCount : comments.length;
   commentCurrentCount.innerHTML = commentsRenderPortion;
   const commentList = comments.slice(0, commentsRenderPortion);
   if (commentsRenderPortion === comments.length) {
@@ -43,16 +44,15 @@ const commentsListCreate = () => {
 const commentsAddOnClick = () => {
   const commentsDataArray = state.currentMediaData;
   const { comments } = commentsDataArray;
-  COMMENT_COUNT += COMMENT_ADDING;
-  if (COMMENT_COUNT >= comments.length) {
-    COMMENT_COUNT = comments.length;
+  commentCount += COMMENT_ADDING;
+  if (commentCount >= comments.length) {
+    commentCount = comments.length;
   }
   commentsListCreate();
 };
 
-//сброс к нулю
 const commentInitalRender = () => {
-  COMMENT_COUNT = COMMENT_ADDING;
+  commentCount = COMMENT_ADDING;
   commentsAddBTN.classList.remove('hidden');
 };
 
