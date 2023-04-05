@@ -29,8 +29,8 @@ const commentRenderList = (list) => {
 };
 
 const commentsListCreate = () => {
-  const commentsDataArray = state.currentMediaData;
-  const { comments } = commentsDataArray;
+  const commentsList = state.currentMediaData;
+  const { comments } = commentsList;
   commentsContainer.innerHTML = '';
   const commentsRenderPortion = commentCount < comments.length ? commentCount : comments.length;
   commentCurrentCount.innerHTML = commentsRenderPortion;
@@ -42,8 +42,8 @@ const commentsListCreate = () => {
 };
 
 const commentsAddOnClick = () => {
-  const commentsDataArray = state.currentMediaData;
-  const { comments } = commentsDataArray;
+  const commentsList = state.currentMediaData;
+  const { comments } = commentsList;
   commentCount += COMMENT_ADDING;
   if (commentCount >= comments.length) {
     commentCount = comments.length;
@@ -56,11 +56,11 @@ const commentInitalRender = () => {
   commentsAddBTN.classList.remove('hidden');
 };
 
-const commentBTNHendler = (evt) => {
+const loadCommentHandler = (evt) => {
   evt.preventDefault();
   commentsAddOnClick();
 };
 
-commentsAddBTN.addEventListener('click', commentBTNHendler);
+commentsAddBTN.addEventListener('click', loadCommentHandler);
 
 export const commentsCreation = { commentsListCreate, commentInitalRender };

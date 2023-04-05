@@ -20,30 +20,30 @@ const debousingGallery = debounce(renderPictureList);
 
 
 const filterMiniatures = (mediaData) => {
-  const miniatuteArray = [...mediaData];
+  const miniatutesArray = [...mediaData];
   switch (filterCurrent) {
     case Filter.RANDOM:
-      return [...miniatuteArray].sort(sortByRandom).slice(0, MINIATURE_COUNT);
+      return [...miniatutesArray].sort(sortByRandom).slice(0, MINIATURE_COUNT);
     case Filter.DISCUSSED:
-      return [...miniatuteArray].sort(sortByDiscussed);
+      return [...miniatutesArray].sort(sortByDiscussed);
     default:
-      return [...miniatuteArray];
+      return [...miniatutesArray];
   }
 };
 
 const chooseFilter = (mediaData) => {
   filterContainer.classList.remove('img-filters--inactive');
   filterContainer.addEventListener('click', (evt) => {
-    const currentBTN = evt.target.closest('.img-filters__button');
-    if (!currentBTN) {
+    const currentFilterIter = evt.target.closest('.img-filters__button');
+    if (!currentFilterIter) {
       return;
     }
-    if (currentBTN.id === filterCurrent) {
+    if (currentFilterIter.id === filterCurrent) {
       return;
     }
     filterContainer.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
-    currentBTN.classList.add('img-filters__button--active');
-    filterCurrent = currentBTN.id;
+    currentFilterIter.classList.add('img-filters__button--active');
+    filterCurrent = currentFilterIter.id;
     debousingGallery(filterMiniatures(mediaData));
   });
 };

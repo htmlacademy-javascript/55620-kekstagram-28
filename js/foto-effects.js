@@ -100,7 +100,7 @@ const resetEffect = () => {
   updateEffectSlider('none');
 };
 
-const chooseEffectonClick = (evt) => {
+const chooseEffectOnClick = (evt) => {
   if (!evt.target.closest('.effects__radio')) {
     return;
   }
@@ -117,6 +117,6 @@ const chooseEffectonClick = (evt) => {
   updateEffectSlider(effect);
 };
 
-effectsList.addEventListener('change', chooseEffectonClick);
+effectsList.addEventListener('change', chooseEffectOnClick);
 
 export const fotoEffects = { resetEffect };

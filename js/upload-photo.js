@@ -1,5 +1,5 @@
 import { sendMediaData } from './api.js';
-import { showSuccessSendDataMessage, showErrorSendDataMessage } from './user-message.js';
+import { showSuccessDataMessage, showErrorSendDataMessage } from './user-message.js';
 import { functionList } from './utils.js';
 import { validation } from './validation.js';
 import { photoZoom } from './foto-zoom.js';
@@ -72,7 +72,7 @@ function uploadFormSubmit(evt) {
   if (pristineValidate()) {
     uploadFileSubmitBTN.disabled = true;
     sendMediaData(new FormData(evt.target))
-      .then(showSuccessSendDataMessage)
+      .then(showSuccessDataMessage)
       .then(() => {
         closeUploadForm();
       })

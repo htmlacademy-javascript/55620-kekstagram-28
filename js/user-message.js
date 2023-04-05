@@ -8,7 +8,7 @@ const userMessageSuccess = document.querySelector('#success').content
   .querySelector('.success');
 
 //ошибка получения данных
-const showErrorGetDataMessage = (error) => {
+const showErrorDataMessage = (error) => {
   const messageTemp = userMessageError.cloneNode(true);
   messageTemp.querySelector('.error__title').textContent = error;
   messageTemp.querySelector('.error__button').classList.add('hidden');
@@ -65,7 +65,7 @@ const onOutSideSuccessClick = (evt) => {
   }
 };
 
-const showSuccessSendDataMessage = () => {
+const showSuccessDataMessage = () => {
   const messageTemp = userMessageSuccess.cloneNode(true);
   messageTemp.querySelector('.success__button').addEventListener('click', closeSuccessPopupMessage);
   document.addEventListener('keydown', onDocumentKeydownSuccess);
@@ -81,4 +81,4 @@ function onDocumentKeydownSuccess(evt) {
   }
 }
 
-export { showErrorGetDataMessage, showSuccessSendDataMessage, showErrorSendDataMessage };
+export { showErrorDataMessage, showSuccessDataMessage, showErrorSendDataMessage };

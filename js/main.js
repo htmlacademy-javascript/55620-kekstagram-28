@@ -1,7 +1,7 @@
 import './upload-photo.js';
 import { state, setMediaData } from './state.js';
 import { getMediaData } from './api.js';
-import { showErrorGetDataMessage } from './user-message.js';
+import { showErrorDataMessage } from './user-message.js';
 import { popupFunctions } from './popup.js';
 import { filterFunction } from './filter.js';
 
@@ -18,7 +18,7 @@ try {
   miniaturesData = state.currentMediaData;
   filterInit(miniaturesData);
 } catch (err) {
-  showErrorGetDataMessage(err.message);
+  showErrorDataMessage(err.message);
 }
 
 const miniatureClicEvent = (evt) => {
