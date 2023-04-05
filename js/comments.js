@@ -31,7 +31,7 @@ const commentRenderList = (list) => {
 const commentsListCreate = () => {
   const commentsList = state.currentMediaData;
   const { comments } = commentsList;
-  commentsContainer.innerHTML = '';
+  commentsContainer.querySelectorAll('.social__comment').forEach((item) => item.remove());
   const commentsRenderPortion = commentCount < comments.length ? commentCount : comments.length;
   commentCurrentCount.innerHTML = commentsRenderPortion;
   const commentList = comments.slice(0, commentsRenderPortion);

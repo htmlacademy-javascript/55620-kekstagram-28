@@ -16,7 +16,7 @@ const fillPopupData = () => {
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.comments-count').textContent = comments.length;
   bigPicture.querySelector('.social__caption').textContent = description;
-  bigPicture.querySelector('.social__comments').innerHTML = '';
+  bigPicture.querySelectorAll('.picture').forEach((item) => item.remove());
   commentsListCreate();
 };
 
@@ -26,7 +26,7 @@ const clearPopupData = () => {
   bigPicture.querySelector('.likes-count').textContent = 0;
   bigPicture.querySelector('.comments-count').textContent = 0;
   bigPicture.querySelector('.social__caption').textContent = '';
-  bigPicture.querySelector('.social__comments').innerHTML = '';
+  bigPicture.querySelectorAll('.picture').forEach((item) => item.remove());
 };
 
 
