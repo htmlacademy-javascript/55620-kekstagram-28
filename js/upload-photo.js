@@ -1,5 +1,5 @@
 import { sendMediaData } from './api.js';
-import { showSuccessSendDataMessage, showErrorSendDataMessage } from './user-message.js';
+import { showSuccessDataMessage, showErrorSendDataMessage } from './user-message.js';
 import { functionList } from './utils.js';
 import { validation } from './validation.js';
 import { photoZoom } from './foto-zoom.js';
@@ -10,7 +10,7 @@ const { resetZoom } = photoZoom;
 const { resetEffect } = fotoEffects;
 const { isEscapeKey } = functionList;
 
-const FILE_TYPES = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
+const FILES_TYPES = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
 
 const uploadForm = document.querySelector('#upload-select-image');
 const uploadFileInput = document.querySelector('#upload-file');
@@ -26,7 +26,7 @@ const effectsPreview = document.querySelectorAll('.effects__preview');
 const uploadUserFile = () => {
   const userFile = uploadFileInput.files[0];
   const userFileName = userFile.name.toLowerCase();
-  const isValidFileType = FILE_TYPES.some((type) => userFileName.endsWith(type));
+  const isValidFileType = FILES_TYPES.some((type) => userFileName.endsWith(type));
 
   if (isValidFileType) {
     userFotoPreview.src = URL.createObjectURL(userFile);
@@ -72,7 +72,7 @@ function uploadFormSubmit(evt) {
   if (pristineValidate()) {
     uploadFileSubmitBTN.disabled = true;
     sendMediaData(new FormData(evt.target))
-      .then(showSuccessSendDataMessage)
+      .then(showSuccessDataMessage)
       .then(() => {
         closeUploadForm();
       })

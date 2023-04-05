@@ -4,7 +4,7 @@ const HASHTAG_LENGTH = 5;
 const MESSAGE_LENGTH = 140;
 const ErrorMessages = {
   textareaErrorMessage: `Длина коментария ограничена ${MESSAGE_LENGTH} символами.`,
-  hashSimbolError: 'У тегов должен быть знак "решетка" - # - и еще минимум один символ',
+  hashSymbolError: 'У тегов должен быть знак "решетка" - # - и еще минимум один символ',
   hashlengthError: `Не более ${HASHTAG_LENGTH} тегов на фото`,
   hashUnicError: 'Повтор тегов запрещен',
 };
@@ -35,7 +35,7 @@ const uploadFormHashtagLengthChecking = (hashtags) => {
   return hashtagArray.length <= HASHTAG_LENGTH;
 };
 
-const uploadFormHashtagHashSimbolChecking = (hashtags) => {
+const uploadFormHashtagHashSymbolChecking = (hashtags) => {
   const hashtagArray = uploadFormHashtagArray(hashtags);
   if (hashtags.length === 0) {
     return true;
@@ -43,7 +43,7 @@ const uploadFormHashtagHashSimbolChecking = (hashtags) => {
   return hashtagArray.every((tag) => REGEXP.test(tag));
 };
 
-const uploadFormHashtagUnicCheckinh = (hashtags) => {
+const uploadFormHashtagUnicCheckin = (hashtags) => {
   const hashtagArray = uploadFormHashtagArray(hashtags);
   const dataSetArray = new Set(hashtagArray);
   return hashtagArray.length === dataSetArray.size;
@@ -51,8 +51,8 @@ const uploadFormHashtagUnicCheckinh = (hashtags) => {
 
 pristine.addValidator(
   uploadForm.querySelector('.text__hashtags'),
-  uploadFormHashtagHashSimbolChecking,
-  ErrorMessages.hashSimbolError);
+  uploadFormHashtagHashSymbolChecking,
+  ErrorMessages.hashSymbolError);
 
 pristine.addValidator(
   uploadForm.querySelector('.text__hashtags'),
@@ -61,7 +61,7 @@ pristine.addValidator(
 
 pristine.addValidator(
   uploadForm.querySelector('.text__hashtags'),
-  uploadFormHashtagUnicCheckinh,
+  uploadFormHashtagUnicCheckin,
   ErrorMessages.hashUnicError);
 
 const pristineValidate = () => pristine.validate();
